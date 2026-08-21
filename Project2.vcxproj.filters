@@ -10,6 +10,9 @@
     <ClCompile Include="src\Input\InputMapper.cpp" />
     <ClCompile Include="src\Synth\OscillatorVoice.cpp" />
     <ClCompile Include="src\Synth\SynthEngine.cpp" />
+    <ClCompile Include="src\Synth\Envelope.cpp" />
+    <ClCompile Include="src\Synth\SynthVoice.cpp" />
+    <ClCompile Include="src\Synth\VoiceManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -24,6 +27,8 @@
     <ClInclude Include="src\Synth\OscillatorVoice.h" />
     <ClInclude Include="src\Synth\SynthEngine.h" />
     <ClInclude Include="src\Synth\SynthVoice.h" />
+    <ClInclude Include="src\Synth\Envelope.h" />
+    <ClInclude Include="src\Synth\VoiceManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />

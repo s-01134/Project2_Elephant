@@ -1,15 +1,11 @@
 #pragma once
-#include <vector>
-#include <memory>
-#include "SynthVoice.h"
-#include "OscillatorVoice.h"
+#include "VoiceManager.h"
 
-// SynthEngine is the audio "brain" of the app. ofApp just forwards
-// OF lifecycle events to it, keeping audio logic out of the app class.
-//
-// SynthEngine OWNS its voices (std::unique_ptr) -- this is the
-// COMPOSITION relationship: the voices' lifetime is entirely
-// controlled by the engine, and they are destroyed when it is.
+// SynthEngine is the audio "brain" of the app, running on the audio
+// thread. From iteration 2 it delegates all voice-pool management to
+// VoiceManager -- still COMPOSITION (SynthEngine owns the manager),
+// just moved one level down now that voice allocation logic has
+// grown enough to deserve its own class.
 class SynthEngine {
 public:
     void setup(float sampleRate);
@@ -20,8 +16,5 @@ public:
     void render(float* outputBuffer, int numFrames, int numChannels);
 
 private:
-    float sampleRate = 44100.f;
-    std::vector<std::unique_ptr<SynthVoice>> voices;
-
-    SynthVoice* findVoicePlaying(int midiNote);
+    VoiceManager voiceManager;
 };

@@ -1,6 +1,16 @@
 #include "ofApp.h"
 
 void ofApp::setup() {
+    // 48000 rather than 44100: on Windows, RtAudio's default device
+    // auto-selection picked a wrapped ASIO driver ("Realtek ASIO")
+    // that rejected the application's requested sample rate outright,
+    // regardless of which rate was asked for. Explicitly requesting a
+    // DirectSound (MS_DS) output device sidesteps this: DirectSound
+    // resamples internally rather than requiring an exact match with
+    // whatever rate the ASIO driver's own control panel is locked to.
+    // settings.sampleRate and the value passed to synthEngine.setup()
+    // must always match -- a mismatch here makes every note play at
+    // the wrong pitch even though audio "works".
     const float SAMPLE_RATE = 48000.f;
 
     ofSoundStreamSettings settings;
@@ -29,8 +39,10 @@ void ofApp::update() {
 
 void ofApp::draw() {
     ofSetColor(255);
-    ofDrawBitmapString("Iteration 1: press and hold A / S / D / F to play notes", 20, 30);
-    ofDrawBitmapString("(4-voice sine synth, no envelope yet -- notes still cut off on release)", 20, 50);
+    ofDrawBitmapString("Iteration 2: two-octave keyboard, ADSR envelope, 8-voice polyphony", 20, 30);
+    ofDrawBitmapString("Lower octave (C4-B4): Z S X D C V G B H N J M", 20, 50);
+    ofDrawBitmapString("Upper octave (C5-B5): Q 2 W 3 E R 5 T 6 Y 7 U", 20, 68);
+    ofDrawBitmapString("Notes now fade in/out smoothly and up to 8 can overlap.", 20, 90);
 }
 
 void ofApp::audioOut(ofSoundBuffer &buffer) {
