@@ -8,11 +8,16 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\Input\InputMapper.cpp" />
-    <ClCompile Include="src\Synth\OscillatorVoice.cpp" />
     <ClCompile Include="src\Synth\SynthEngine.cpp" />
     <ClCompile Include="src\Synth\Envelope.cpp" />
     <ClCompile Include="src\Synth\SynthVoice.cpp" />
     <ClCompile Include="src\Synth\VoiceManager.cpp" />
+    <ClCompile Include="src\Synth\NoiseVoice.cpp" />
+    <ClCompile Include="src\Synth\SamplerVoice.cpp" />
+    <ClCompile Include="src\Synth\SawVoice.cpp" />
+    <ClCompile Include="src\Synth\SineVoice.cpp" />
+    <ClCompile Include="src\Synth\SquareVoice.cpp" />
+    <ClCompile Include="src\Synth\WavLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -24,11 +29,17 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\Input\InputMapper.h" />
-    <ClInclude Include="src\Synth\OscillatorVoice.h" />
     <ClInclude Include="src\Synth\SynthEngine.h" />
     <ClInclude Include="src\Synth\SynthVoice.h" />
     <ClInclude Include="src\Synth\Envelope.h" />
     <ClInclude Include="src\Synth\VoiceManager.h" />
+    <ClInclude Include="src\Synth\MidiUtils.h" />
+    <ClInclude Include="src\Synth\NoiseVoice.h" />
+    <ClInclude Include="src\Synth\SamplerVoice.h" />
+    <ClInclude Include="src\Synth\SawVoice.h" />
+    <ClInclude Include="src\Synth\SineVoice.h" />
+    <ClInclude Include="src\Synth\SquareVoice.h" />
+    <ClInclude Include="src\Synth\WavLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />

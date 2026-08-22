@@ -11,6 +11,7 @@ public:
     void setup(float sampleRate);
     void noteOn(int midiNote, float velocity);
     void noteOff(int midiNote);
+    void setVoiceType(VoiceManager::VoiceType type);
 
     // Fills an audio buffer -- called from ofApp::audioOut every block.
     void render(float* outputBuffer, int numFrames, int numChannels);

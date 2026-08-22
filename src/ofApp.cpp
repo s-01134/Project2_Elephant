@@ -39,10 +39,10 @@ void ofApp::update() {
 
 void ofApp::draw() {
     ofSetColor(255);
-    ofDrawBitmapString("Iteration 2: two-octave keyboard, ADSR envelope, 8-voice polyphony", 20, 30);
+    ofDrawBitmapString("Iteration 4: 5 voice types, ADSR envelope, 10-voice polyphony (2 per type)", 20, 30);
     ofDrawBitmapString("Lower octave (C4-B4): Z S X D C V G B H N J M", 20, 50);
     ofDrawBitmapString("Upper octave (C5-B5): Q 2 W 3 E R 5 T 6 Y 7 U", 20, 68);
-    ofDrawBitmapString("Notes now fade in/out smoothly and up to 8 can overlap.", 20, 90);
+    ofDrawBitmapString("Voice: 1=Sine 4=Saw 8=Square 9=Noise 0=Sampler(kick.wav)", 20, 90);
 }
 
 void ofApp::audioOut(ofSoundBuffer &buffer) {

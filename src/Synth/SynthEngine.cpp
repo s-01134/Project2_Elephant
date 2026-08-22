@@ -1,7 +1,11 @@
 #include "SynthEngine.h"
 
 void SynthEngine::setup(float sr) {
-    voiceManager.setup(sr, 8); // 8-voice polyphony (up from 4 in iteration 1)
+    voiceManager.setup(sr, 2); // 2 voices per type x 5 types = 10 total
+}
+
+void SynthEngine::setVoiceType(VoiceManager::VoiceType type) {
+    voiceManager.setVoiceType(type);
 }
 
 void SynthEngine::noteOn(int midiNote, float velocity) {
