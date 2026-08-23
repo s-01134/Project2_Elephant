@@ -29,12 +29,14 @@ void ofApp::setup() {
 
     synthEngine.setup(SAMPLE_RATE);
     inputMapper.setup(&synthEngine);
+    interactionPad.setup(&synthEngine, PAD_WIDTH, PAD_HEIGHT);
+    visualizer.setup(synthEngine.getRingBuffer());
 
     ofBackground(20);
 }
 
 void ofApp::update() {
-    // Nothing yet -- iteration 5 pulls visualization data here.
+    interactionPad.update(ofGetLastFrameTime());
 }
 
 void ofApp::draw() {
@@ -43,6 +45,26 @@ void ofApp::draw() {
     ofDrawBitmapString("Lower octave (C4-B4): Z S X D C V G B H N J M", 20, 50);
     ofDrawBitmapString("Upper octave (C5-B5): Q 2 W 3 E R 5 T 6 Y 7 U", 20, 68);
     ofDrawBitmapString("Voice: 1=Sine 4=Saw 8=Square 9=Noise 0=Sampler(kick.wav)", 20, 90);
+    ofDrawBitmapString("Mouse pad below: hold+drag for theremin (X=pitch Y=volume). Drag further + release to play a gesture melody.", 20, 112);
+
+    // Oscilloscope + spectrum, drawn above the pad
+    visualizer.draw(20, 130, PAD_WIDTH, 110);
+
+    // Interaction pad outline + gesture trail
+    ofNoFill();
+    ofSetColor(80);
+    ofDrawRectangle(PAD_X, PAD_Y, PAD_WIDTH, PAD_HEIGHT);
+
+    const auto& path = interactionPad.getRecordedPath();
+    if (path.size() > 1) {
+        ofSetColor(interactionPad.isDraggingNow() ? ofColor(240, 150, 120) : ofColor(120, 120, 120));
+        ofNoFill();
+        ofBeginShape();
+        for (const auto& pt : path) {
+            ofVertex(pt.first, pt.second);
+        }
+        ofEndShape(false);
+    }
 }
 
 void ofApp::audioOut(ofSoundBuffer &buffer) {
@@ -58,4 +80,22 @@ void ofApp::keyPressed(int key) {
 
 void ofApp::keyReleased(int key) {
     inputMapper.keyReleased(key);
+}
+
+void ofApp::mousePressed(int x, int y, int /*button*/) {
+    if (x >= PAD_X && x <= PAD_X + PAD_WIDTH && y >= PAD_Y && y <= PAD_Y + PAD_HEIGHT) {
+        interactionPad.mousePressed(x - PAD_X, y - PAD_Y);
+    }
+}
+
+void ofApp::mouseDragged(int x, int y, int /*button*/) {
+    // Clamp to pad bounds so dragging outside the box doesn't produce
+    // out-of-range frequencies/amplitudes.
+    float px = ofClamp(static_cast<float>(x) - PAD_X, 0.f, PAD_WIDTH);
+    float py = ofClamp(static_cast<float>(y) - PAD_Y, 0.f, PAD_HEIGHT);
+    interactionPad.mouseDragged(px, py);
+}
+
+void ofApp::mouseReleased(int x, int y, int /*button*/) {
+    interactionPad.mouseReleased(x - PAD_X, y - PAD_Y);
 }
