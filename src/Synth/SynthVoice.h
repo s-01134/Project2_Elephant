@@ -1,5 +1,6 @@
 #pragma once
 #include "Envelope.h"
+#include <atomic>
 
 // Abstract base class for anything that can produce a sample of audio.
 //
@@ -29,8 +30,8 @@ public:
         envelope.releaseTime = release;
     }
 
-    bool isActive() const { return active; }
-    int getMidiNote() const { return midiNote; }
+    bool isActive() const { return active.load(std::memory_order_relaxed); }
+    int getMidiNote() const { return midiNote.load(std::memory_order_relaxed); }
 
 protected:
     // Subclasses implement these instead of the old noteOn/renderSample.
@@ -40,7 +41,7 @@ protected:
     float sampleRate = 44100.f;
 
 private:
-    int midiNote = -1;
-    bool active = false;
+    std::atomic<int> midiNote{-1};
+    std::atomic<bool> active{false};
     Envelope envelope;
 };

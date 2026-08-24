@@ -42,13 +42,12 @@ public:
 private:
     std::vector<std::unique_ptr<SynthVoice>> voices;
     std::vector<VoiceType> voiceKind; // parallel array, set once in setup()
-    std::vector<int> voiceAge;        // higher = more recently triggered
-    int ageCounter = 0;
+    std::vector<unsigned int> voiceAge; // higher = more recently triggered
+    unsigned int ageCounter = 0;        // unsigned avoids signed overflow issues
     VoiceType currentType = VoiceType::Sine;
 
     SampleData sampleData; // loaded once, shared by pointer with every SamplerVoice
 
-    SynthVoice* findVoicePlaying(int midiNote);
     int findFreeVoiceIndex();   // only among voices of currentType
     int findOldestVoiceIndex(); // only among voices of currentType
 };

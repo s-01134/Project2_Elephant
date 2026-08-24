@@ -63,16 +63,6 @@ void VoiceManager::setup(float sampleRate, int voicesPerType) {
     });
 }
 
-SynthVoice* VoiceManager::findVoicePlaying(int midiNote) {
-    // Deliberately searches ALL voices, regardless of type: a note
-    // may have been triggered on a voice type that isn't the
-    // currently selected one anymore, and noteOff must still find it.
-    for (auto& v : voices) {
-        if (v->isActive() && v->getMidiNote() == midiNote) return v.get();
-    }
-    return nullptr;
-}
-
 int VoiceManager::findFreeVoiceIndex() {
     for (size_t i = 0; i < voices.size(); ++i) {
         if (voiceKind[i] == currentType && !voices[i]->isActive()) {
@@ -84,7 +74,7 @@ int VoiceManager::findFreeVoiceIndex() {
 
 int VoiceManager::findOldestVoiceIndex() {
     int oldestIndex = -1;
-    int oldestAge = INT_MAX;
+    unsigned int oldestAge = UINT_MAX; // looking for MINIMUM age (oldest voice)
     for (size_t i = 0; i < voices.size(); ++i) {
         if (voiceKind[i] == currentType && voiceAge[i] < oldestAge) {
             oldestAge = voiceAge[i];
@@ -105,13 +95,26 @@ void VoiceManager::noteOn(int midiNote, float velocity) {
     if (index == -1) {
         index = findOldestVoiceIndex(); // voice stealing, within the current type's pool
     }
+    
+    // Safety check: if we still don't have a valid voice (e.g., zero
+    // voices of this type were allocated), bail out silently rather
+    // than crashing.
+    if (index == -1) {
+        return;
+    }
+    
     voices[index]->noteOn(midiNote, velocity);
     voiceAge[index] = ++ageCounter;
 }
 
 void VoiceManager::noteOff(int midiNote) {
-    if (auto* v = findVoicePlaying(midiNote)) {
-        v->noteOff();
+    // Stop ALL voices playing this note, not just the first one.
+    // This prevents stuck notes when multiple voices are triggered
+    // for the same MIDI note (e.g., rapid retriggering or voice stealing).
+    for (auto& v : voices) {
+        if (v->isActive() && v->getMidiNote() == midiNote) {
+            v->noteOff();
+        }
     }
 }
 
