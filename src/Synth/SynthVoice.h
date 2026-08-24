@@ -19,6 +19,16 @@ public:
     void noteOff();
     float renderSample();
 
+    // Lets the GUI panel (iteration 5) adjust the shared ADSR shape
+    // for every voice of every type at once, without breaking the
+    // encapsulation of the private Envelope member below.
+    void setEnvelopeParams(float attack, float decay, float sustain, float release) {
+        envelope.attackTime = attack;
+        envelope.decayTime = decay;
+        envelope.sustainLevel = sustain;
+        envelope.releaseTime = release;
+    }
+
     bool isActive() const { return active; }
     int getMidiNote() const { return midiNote; }
 

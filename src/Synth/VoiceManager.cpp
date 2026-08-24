@@ -94,6 +94,12 @@ int VoiceManager::findOldestVoiceIndex() {
     return oldestIndex;
 }
 
+void VoiceManager::setEnvelopeParams(float attack, float decay, float sustain, float release) {
+    for (auto& v : voices) {
+        v->setEnvelopeParams(attack, decay, sustain, release);
+    }
+}
+
 void VoiceManager::noteOn(int midiNote, float velocity) {
     int index = findFreeVoiceIndex();
     if (index == -1) {

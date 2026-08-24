@@ -32,6 +32,10 @@ public:
     void noteOn(int midiNote, float velocity);
     void noteOff(int midiNote);
 
+    // Applies new ADSR values to every voice in every sub-pool at
+    // once -- called from the GUI panel (iteration 5).
+    void setEnvelopeParams(float attack, float decay, float sustain, float release);
+
     // Sums and returns one mixed sample from every voice in the pool.
     float renderSample();
 

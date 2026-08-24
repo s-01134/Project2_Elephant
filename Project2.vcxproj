@@ -226,12 +226,16 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\GUI\KnobControl.cpp" />
     <ClCompile Include="src\Input\InputMapper.cpp" />
     <ClCompile Include="src\Input\InteractionPad.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
     <ClCompile Include="src\Synth\AudioRingBuffer.cpp" />
+    <ClCompile Include="src\Synth\DelayEffect.cpp" />
+    <ClCompile Include="src\Synth\EffectsChain.cpp" />
     <ClCompile Include="src\Synth\Envelope.cpp" />
+    <ClCompile Include="src\Synth\LowPassFilter.cpp" />
     <ClCompile Include="src\Synth\NoiseVoice.cpp" />
     <ClCompile Include="src\Synth\SamplerVoice.cpp" />
     <ClCompile Include="src\Synth\SawVoice.cpp" />
@@ -245,11 +249,16 @@
     <ClCompile Include="src\Visualization\Visualizer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GUI\KnobControl.h" />
     <ClInclude Include="src\Input\InputMapper.h" />
     <ClInclude Include="src\Input\InteractionPad.h" />
     <ClInclude Include="src\ofApp.h" />
     <ClInclude Include="src\Synth\AudioRingBuffer.h" />
+    <ClInclude Include="src\Synth\DelayEffect.h" />
+    <ClInclude Include="src\Synth\Effect.h" />
+    <ClInclude Include="src\Synth\EffectsChain.h" />
     <ClInclude Include="src\Synth\Envelope.h" />
+    <ClInclude Include="src\Synth\LowPassFilter.h" />
     <ClInclude Include="src\Synth\MidiUtils.h" />
     <ClInclude Include="src\Synth\NoiseVoice.h" />
     <ClInclude Include="src\Synth\SamplerVoice.h" />

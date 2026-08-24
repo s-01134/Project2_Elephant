@@ -22,6 +22,10 @@
     <ClCompile Include="src\Synth\Spectrum.cpp" />
     <ClCompile Include="src\Visualization\Visualizer.cpp" />
     <ClCompile Include="src\Input\InteractionPad.cpp" />
+    <ClCompile Include="src\Synth\DelayEffect.cpp" />
+    <ClCompile Include="src\Synth\EffectsChain.cpp" />
+    <ClCompile Include="src\Synth\LowPassFilter.cpp" />
+    <ClCompile Include="src\GUI\KnobControl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -48,6 +52,11 @@
     <ClInclude Include="src\Synth\Spectrum.h" />
     <ClInclude Include="src\Visualization\Visualizer.h" />
     <ClInclude Include="src\Input\InteractionPad.h" />
+    <ClInclude Include="src\Synth\DelayEffect.h" />
+    <ClInclude Include="src\Synth\Effect.h" />
+    <ClInclude Include="src\Synth\EffectsChain.h" />
+    <ClInclude Include="src\Synth\LowPassFilter.h" />
+    <ClInclude Include="src\GUI\KnobControl.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />

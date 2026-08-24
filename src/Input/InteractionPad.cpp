@@ -40,21 +40,21 @@ void InteractionPad::mousePressed(float x, float y) {
     recordedPath.clear();
     recordedPath.push_back({x, y});
 
-    synthEngine->theraminNoteOn(xToFrequency(x), yToAmplitude(y));
+    synthEngine->thereminNoteOn(xToFrequency(x), yToAmplitude(y));
 }
 
 void InteractionPad::mouseDragged(float x, float y) {
     if (!synthEngine || !isDragging) return;
     recordedPath.push_back({x, y});
 
-    synthEngine->theraminSetFrequency(xToFrequency(x));
-    synthEngine->theraminSetAmplitude(yToAmplitude(y));
+    synthEngine->thereminSetFrequency(xToFrequency(x));
+    synthEngine->thereminSetAmplitude(yToAmplitude(y));
 }
 
 void InteractionPad::mouseReleased(float /*x*/, float /*y*/) {
     if (!synthEngine) return;
     isDragging = false;
-    synthEngine->theraminNoteOff();
+    synthEngine->thereminNoteOff();
 
     // Only treat this as a "gesture" worth replaying if the drag was
     // long enough to be an intentional shape rather than a tap.
